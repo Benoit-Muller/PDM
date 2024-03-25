@@ -4,8 +4,11 @@ function problem = nonconvex_problem(A,p)
     problem.k=k;
     problem.p=p;
     problem.A = A;
-    problem.Y = sqrtm(A); % A=Y*Y'
-    problem.cost = @(X) cost(Y, X.E, X.O);
+    problem.Y = A;
+    for i=1:k
+        problem.Y(:,:,i) = sqrtm(A(:,:,i));
+    end
+    problem.cost = @(X) cost(problem.Y, X.E, X.O);
     problem.M = euclidean_orthogonal_factory(n,p,k);
-    problem.egrad = egrad;
+    problem.egrad = @(X) egrad(problem.Y,X.E,X.O);
 end

@@ -1,3 +1,3 @@
 function c = cost(Y,X,Q)
-    norm(X - multiprod(Y,Q),"fro")
+    c = norm(X - multiprod(Y,Q),"fro")^2;
 end
