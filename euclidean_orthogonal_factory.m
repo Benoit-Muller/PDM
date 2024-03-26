@@ -1,13 +1,13 @@
-function M = euclidean_orthogonal_factory(n,p,k)
+function M = euclidean_orthogonal_factory(n,r,p,k)
 % Manifold structure of the product of
 %               The (n,p) Euclidean space 
-%       k times The (p,p) orthogonal manifold
+%       k times The (r,p) stiefel manifold
 % Points are represented as a structure X with 
-%       X.E the (n,p) matrix
-%       X.O the (p,p,k) matrix with orthogonal slices
+%       X.X the (n,p) matrix
+%       X.Q the (p,p,k) matrix with orthogonal slices
 
-    factors.E = euclideanfactory(n,p);
-    factors.O = stiefelfactory(p,p,k);
+    product.X = euclideanfactory(n,p);
+    product.Q = stiefelfactory(r,p,k);
     
-    M = productmanifold(factors);
+    M = productmanifold(product);
 end

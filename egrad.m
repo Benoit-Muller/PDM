@@ -1,4 +1,4 @@
 function g = egrad(Y,X,Q)
-    g.E = 2 * sum(X - multiprod(Y,Q), 3);
-    g.O = 2 * multiprod(Y, multiprod(Y,Q) - X);
+    g.X = 2 * sum(X - multiprod(Y,Q), 3);
+    g.Q = 2 * multiprod(multitransp(Y), multiprod(Y,Q) - X);
 end

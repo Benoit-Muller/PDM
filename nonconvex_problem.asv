@@ -14,5 +14,5 @@ function problem = nonconvex_problem(A,r,p)
     problem.cost = @(Z) cost(problem.Y, Z.X, Z.Q);
     problem.M = euclidean_orthogonal_factory(n,r,p,k);
     problem.egrad = @(Z) egrad(problem.Y, Z.X, Z.Q);
-    problem.ehess = @(Z,W) egrad(problem.Y,W.X,W.Q);
+    prob
 end
