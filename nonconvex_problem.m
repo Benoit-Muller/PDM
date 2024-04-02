@@ -1,4 +1,5 @@
 function problem = nonconvex_problem(A,r,p)
+% r >= p
     [n,n,k] = size(A);
     problem.n=n;
     problem.r=r;
@@ -6,14 +7,17 @@ function problem = nonconvex_problem(A,r,p)
     problem.k=k;
 
     problem.A = A;
-    problem.Y = zeros(size(A));
+    problem.Y = zeros(n,r,k);
     for i=1:k
-        [U,S,V] = svds(A(:,:,i),r);
-        problem.Y(:,:,i) = U*sqrt(S)*V';
+        [V,D] = eigs(A(:,:,i),r); %eigs
+        problem.Y(:,:,i) = V*sqrt(D);
     end
-    problem.cost = @(Z) cost(problem.Y, Z.X, Z.Q);
+
+    problem.cost = @(Z) cost(problem.Y, Z.X, multitransp(Z.Qt));
     problem.M = euclidean_orthogonal_factory(n,r,p,k);
-    problem.egrad = @(Z) egrad(problem.Y, Z.X, Z.Q);
-    problem.costgrad = @(Z) costgrad(problem.Y, Z.X, Z.Q);
-    problem.ehess = @(Z,W) egrad(problem.Y,W.X,W.Q);
+    problem.egrad = @(Z) egrad(problem.Y, Z.X, multitransp(Z.Qt));
+    problem.costgrad = @(Z) costgrad(problem.Y, Z.X, multitransp(Z.Qt));
+    problem.ehess = @(Z,W) egrad(problem.Y,W.X,multitransp(W.Qt));
+    problem.variance = @(B) cost_variance(problem.A,B);
+    problem.egrad_variance = @(B) egrad_variance(problem.A,B);
 end
