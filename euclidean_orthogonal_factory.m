@@ -7,7 +7,7 @@ function M = euclidean_orthogonal_factory(n,r,p,k)
 %       X.Qt the (r,p,k) matrix with orthogonal slices
 
     product.X = euclideanfactory(n,p);
-    product.Qt = stiefelfactory(r,p,k);
+    product.Qt = stiefelfactory(p,r,k);
     
     M = productmanifold(product);
 end
