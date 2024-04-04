@@ -4,6 +4,6 @@ function g = egrad_variance(A,B)
     X = 0.5*(X + X'); % numerical need
     g = eye(n);
     for j=1:k
-        g = g - X \ sqrtm(X*A(:,:,k)*X) / X;
+        g = g - 1/k * X \ sqrtm(X*A(:,:,k)*X) / X;
     end
 end

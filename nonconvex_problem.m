@@ -15,15 +15,16 @@ function problem = nonconvex_problem(A,r,p)
 
     problem.cost = @(Z) cost(problem.Y, Z.X, multitransp(Z.Qt));
     problem.M = euclidean_orthogonal_factory(n,r,p,k);
-    problem.egrad = @(Z) transp_Q_field(egrad(problem.Y, Z.X, multitransp(Z.Qt)));
+    problem.egrad = @(Z) Qt_field_g(egrad(problem.Y, Z.X, multitransp(Z.Qt)));
     %problem.costgrad = @(Z) costgrad(problem.Y, Z.X, multitransp(Z.Qt));
     problem.ehess = @(Z,W) problem.egrad(W);
     %problem.variance = @(B) cost_variance(problem.A,B);
     %problem.egrad_variance = @(B) egrad_variance(problem.A,B);
 end
 
-function Znew = transp_Q_field(Z)
+function Znew = Qt_field_g(Z)
     Znew.X = Z.X;
     Znew.Qt = multitransp(Z.Q);
 end
+
     

@@ -6,4 +6,5 @@ function c = cost_variance(A,B)
         c = c - 2 * trace(sqrtm(X*A(:,:,j)*X));
         c = c + trace(A(:,:,j)) + trace(B);
     end
+    c=c/k;
 end
