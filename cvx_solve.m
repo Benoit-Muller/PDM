@@ -11,7 +11,7 @@ trA = sum(multitrace(A));
 cvx_begin sdp quiet
     variable B( n, n ) symmetric
     dual variable D
-    minimize(k*trace(B) + trA - 2*trace_sqrtm(diagAsqrt * kron(eye(k),B) * diagAsqrt))
+    minimize(trace(B) + trA/k - 2/k*trace_sqrtm(diagAsqrt * kron(eye(k),B) * diagAsqrt))
     B >= 0 : D;
 cvx_end
 

@@ -1,9 +1,11 @@
 function c = cost_variance(A,B)
     [~,~,k] = size(A);
-    X=sqrtm(B);
+    Bsqrt=multisqrtm(B);
     c = 0;
     for j=1:k
-        c = c - 2 * trace(sqrtm(X*A(:,:,j)*X));
+        E = eig(Bsqrt*A(:,:,j)*Bsqrt);
+        E(E<0)=0;
+        c = c - 2 * sum(sqrt(E));
         c = c + trace(A(:,:,j)) + trace(B);
     end
     c=c/k;
