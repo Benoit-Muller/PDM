@@ -3,7 +3,7 @@ function A = data_scaled(B,k)
 % (suposedly) B.
     n = size(B,1);
     Z = randn(n,n,k);
-    ZZt = Z*multitransp(Z);
-    A = ZZt*B*ZZt;
-    A = multisym(A); % numeric purposes
+    ZZt = pagemtimes(Z,"none",Z,"transpose");
+    A = 1/n^2 * pagemtimes(pagemtimes(ZZt,B),ZZt);
+    A = multisym(A); % numeric purpose
 end
