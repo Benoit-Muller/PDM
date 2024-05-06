@@ -1,11 +1,13 @@
 function Y = multisqrtm(A,r)
-    [n,m,k] = size(A);
+% return Y such that Y*Y'=A. if r is not specified, return the unique psd
+% matrix. If not, it return a low rank factorization of width r.
+    [n,~,k] = size(A);
     if nargin==1
         r=n;
     end
-    Y = zeros(n,m,k);
+    Y = zeros(n,r,k);
     for j=1:k
-        [V,D] = eig(A(:,:,j));
+        [V,D] = eigs(A(:,:,j),r);
         V=real(V);
         D=real(D);
         D(D<0)=0;
@@ -13,7 +15,7 @@ function Y = multisqrtm(A,r)
             Y(:,:,j) = V * sqrt(D) * V';
             Y(:,:,j)= 0.5*(Y(:,:,j) + multitransp(Y(:,:,j)));
         else
-            Y(:,:,j) = V(:,1:r) * sqrt(D(1:r,1:r));
+            Y(:,:,j) = V * sqrt(D);
         end
     end
 end
