@@ -6,3 +6,4 @@ p=r+1; % size of factorization X of barycenter B (r<=p)
 A = data(n,k,r);
 prob = nonconvex_problem(A,r,p);
 checkgradient(prob);
+checkhessian(prob);
