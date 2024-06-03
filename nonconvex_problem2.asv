@@ -42,12 +42,12 @@ function problem = nonconvex_problem2(A,r,p)
 
     problem.ehess = @(Q,V) problem.egrad(V);
 
-    problem.B = @B;
-    function B=B(Q)
+    problem.Q2B = @Q2B;
+    function B=Q2B(Q)
         X= 1/k * problem.Y2 * Q;
         B=X*X';
     end
-    problem.XQ2Q = @(XQ) problem.M.to2D(multitransp(XQ.Qt));
+    problem.QXtoQ
     problem.variance = @(B) cost_variance(problem.A,B);
     problem.egrad_variance = @(B) egrad_variance(problem.A,B);
 end
