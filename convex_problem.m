@@ -7,8 +7,8 @@ function problem = convex_problem(A)
     problem.M = sympositivedefinitefactory(n);
     problem.egrad = @(B) egrad_variance(A,B);
     problem.fixed_equation = @fixed_equation;
-    function C = fixed_equation(A,B)
-        Bsqrt = sqrtm(B);
+    function C = fixed_equation(B)
+        Bsqrt = multisqrtm(B);
         C = mean(multisqrtm(pagemtimes(pagemtimes(Bsqrt,A),Bsqrt)),3);
     end
 end

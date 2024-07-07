@@ -15,7 +15,7 @@ function [B,Bcost,info] = cvx_solve_fast(A)
         diagAsqrt(ids,ids) = Asqrt(:,:,j);
     end
     trA = sum(multitrace(A));
-    
+    % The convex problem:
     cvx_begin sdp quiet
         variable B( n, n ) symmetric
         cost = trace(B) + trA/k;
@@ -31,8 +31,11 @@ function [B,Bcost,info] = cvx_solve_fast(A)
     info.status = cvx_status;
     info.iter = cvx_slvitr;
     info.tol = cvx_slvtol;
-    info.optbnd = cvx_optbnd;
+    %info.optbnd = cvx_optbnd;
     info.time = cvx_cputime;
+%     if info.status~="Solved"
+%         warning(info.status)
+%     end
 end
 
 
