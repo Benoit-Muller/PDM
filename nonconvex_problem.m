@@ -1,13 +1,14 @@
 function problem = nonconvex_problem(A,r,p)
+%
 % r >= p
     [n,n,k] = size(A);
-    problem.n=n;
-    problem.r=r;
-    problem.p=p;
-    problem.k=k;
+    problem.n=n; % dimension
+    problem.r=r; % width of data factorization
+    problem.p=p; % width of barycenter factorization
+    problem.k=k; % number of data matrices
 
     problem.A = A;
-    problem.Y = zeros(n,r,k);
+    problem.Y = zeros(n,r,k); % data factorization
     for i=1:k
         [V,D] = eigs(A(:,:,i),r); %eigs
         problem.Y(:,:,i) = V*sqrt(D);
